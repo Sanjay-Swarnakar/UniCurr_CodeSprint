@@ -76,7 +76,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/sendSection"
+        android:id="@+id/sendButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send Money"
@@ -86,6 +86,18 @@
         >
 
     </Button>
+    <FrameLayout
+        android:id="@+id/qrScannerSection"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        android:background="#22000000"
+        app:layout_constraintTop_toBottomOf="@id/sendButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/statementSection"
+        android:layout_marginTop="16dp" />
+
 
 
     <RelativeLayout
