@@ -1,6 +1,8 @@
 [versions]
 agp = "8.11.0"
 firebaseAuth = "23.2.1"
+firebaseAuthVersion = "22.1.1"
+firebaseFirestore = "25.1.4"
 gson = "2.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -13,6 +15,8 @@ okhttp = "4.12.0"
 
 [libraries]
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
+firebase-auth-v2211 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
