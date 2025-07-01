@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "970566511996",
+    "project_id": "unicurrapp",
+    "storage_bucket": "unicurrapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970566511996:android:35eed07ff1a25ed3b888f9",
+        "android_client_info": {
+          "package_name": "com.hackathon.unicurr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkt0pyCnKZeMd7gPkNiN_-wYXmV98WCUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
