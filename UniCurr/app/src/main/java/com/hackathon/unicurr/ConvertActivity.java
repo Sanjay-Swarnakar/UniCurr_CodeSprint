@@ -1,8 +1,6 @@
 package com.hackathon.unicurr;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,10 +48,7 @@ public class ConvertActivity extends AppCompatActivity {
 
         btnConvert.setOnClickListener(v -> convert());
 
-        // Optional: convert instantly when amount or currency changes
-        edtAmount.addTextChangedListener(new SimpleTextWatcher());
-        spinnerFrom.setOnItemSelectedListener(new SimpleItemSelectedListener());
-        spinnerTo.setOnItemSelectedListener(new SimpleItemSelectedListener());
+        // Removed auto-convert listeners to only convert on button press
     }
 
     private void fetchRates() {
@@ -69,17 +64,31 @@ public class ConvertActivity extends AppCompatActivity {
     private void convert() {
         String from = spinnerFrom.getSelectedItem().toString();
         String to = spinnerTo.getSelectedItem().toString();
-        double amount;
 
+        if (from.equals(to)) {
+            txtResult.setText("Please select two different currencies.");
+            return;
+        }
+
+        // Disallow UniCurr to UniCurr conversions (redundant but explicit)
+        if (from.equals("UniCurr") && to.equals("UniCurr")) {
+            txtResult.setText("Conversion between UniCurr and UniCurr is not supported.");
+            return;
+        }
+
+        double amount;
         try {
             amount = Double.parseDouble(edtAmount.getText().toString());
+            if (amount <= 0) {
+                txtResult.setText("Enter a positive amount.");
+                return;
+            }
         } catch (NumberFormatException e) {
             txtResult.setText("Invalid amount");
             return;
         }
 
         double result;
-
         if (from.equals("UniCurr")) {
             double unicurrValue = calculateUnicurrValue(); // in USD
             double toRate = rates.getOrDefault(to, 1.0);
@@ -105,24 +114,5 @@ public class ConvertActivity extends AppCompatActivity {
             sum += weight * rate;
         }
         return sum; // 1 UniCurr value in USD
-    }
-
-    // To update conversion when input changes instantly:
-    private class SimpleTextWatcher implements TextWatcher {
-        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        @Override
-        public void afterTextChanged(Editable s) {
-            convert();
-        }
-    }
-
-    private class SimpleItemSelectedListener implements AdapterView.OnItemSelectedListener {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-            convert();
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {}
     }
 }
