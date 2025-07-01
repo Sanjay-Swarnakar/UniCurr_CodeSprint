@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.auth.v2211)
     implementation(libs.firebase.firestore)
+    implementation(libs.mpandroidchart)
+    implementation(libs.zxing.android.embedded)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

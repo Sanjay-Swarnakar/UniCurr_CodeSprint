@@ -2,35 +2,41 @@ package com.hackathon.unicurr;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView txtUsername, txtBalance;
+    TextView txtEmail, txtUid;
     Button btnLogout;
 
-    private double currentBalance = 500.0; // Mock balance
-    private String userEmail = "johndoe@example.com"; // Mock user
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        txtUsername = findViewById(R.id.txtUsername);
-        txtBalance = findViewById(R.id.txtBalance);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtUid = findViewById(R.id.txtUid);
         btnLogout = findViewById(R.id.btnLogout);
 
-        txtUsername.setText("User: " + userEmail);
-        txtBalance.setText("Balance: " + currentBalance + " UniCurr");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            txtEmail.setText("Email: " + user.getEmail());
+            txtUid.setText("User ID: " + user.getUid());
+        } else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         btnLogout.setOnClickListener(v -> {
-            // Future: Clear Firebase auth
-            Intent i = new Intent(this, MainActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
+            mAuth.signOut();
+            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             finish();
         });
     }
